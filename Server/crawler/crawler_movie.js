@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 //获取电影基本信息的url
-const url = 'https://movie.douban.com/explore#!type=movie&tag=%E7%83%AD%E9%97%A8&sort=time&page_limit=20&page_start=0';
+const url = 'https://movie.douban.com/explore#!type=movie&tag=%E6%9C%80%E6%96%B0&page_limit=20&page_start=0';
 const {sleep} = require('../utils/index.js');
 
-(async ()=>{
+const movies = async ()=>{
   const browser = await puppeteer.launch({
     /* headless: false, */
   });
@@ -51,5 +51,29 @@ const {sleep} = require('../utils/index.js');
     return movieList;
   })
 
-  console.log(movieInfo);
-})();
+  /* movieInfo.forEach((item) => {
+    (async ()=>{
+      await page.goto(item.href,{
+        waitUntil:'networkidle2',
+      });
+      const video = await page.evaluate(() => {
+        if(document.querySelector('.related-pic-video')){
+          let dom = document.querySelector('.related-pic-video');
+          let videoHref = dom.getAttribute('href');
+          return videoHref;
+        }else{
+          return false;
+        }
+      })
+      if(video){
+        console.log(video);
+      }
+    })();
+  }) */
+  return movieInfo;
+  /* console.log(movieInfo); */
+};
+
+module.exports = {
+  movies,
+}
