@@ -22,7 +22,8 @@ const movies = async ()=>{
 
   const movieInfo = await page.evaluate(()=>{
     
-    var movies = document.querySelectorAll('.item');
+    /* var movies = document.querySelectorAll('.item'); */
+    var movies = [document.querySelector('.item')];
     var movieList = [];
     var num = 0;
 
