@@ -4,6 +4,7 @@ const {sleep} = require('../utils/index.js');
 let movieList = []; //组成电影列表信息的数组
 
 let results = async () => {
+  console.log("开始爬取电影预告片信息中......");
   let moviesInfo = await movies();
   const browser = await puppeteer.launch({
     /* headless: false, */
@@ -43,39 +44,6 @@ let results = async () => {
       let result = await item();
       movieList.push(result);
     }
-    /* moviesItem.forEach((movie) => {
-      let item = async () => {
-        let page = await browser.newPage();
-        await page.goto(movie.href,{
-          waitUntil:'networkidle2',
-        });
-        
-        let video = await page.evaluate(() => {
-          if(document.querySelector('.related-pic-video')){
-            let dom = document.querySelector('.related-pic-video');
-            let href = dom.getAttribute('href');
-            let trailer_img = dom.style.backgroundImage.slice(5,-3);
-            return {
-              href,
-              trailer_img,
-            };
-          }else{
-            return false;
-          }
-        })
-        if(video){
-          movie['trailer_img'] = video.trailer_img;
-          movie['video_page'] = video.href;
-          return movie;
-        }else{
-          return movie;
-        }
-      }
-      item().then((res) => {
-        movieList.push(res);
-        console.log(movieList);
-      });
-    }) */
   }
 
   return movieList;

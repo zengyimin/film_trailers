@@ -14,12 +14,11 @@ const movies = async ()=>{
 
   //等待30s
   await sleep(3000);
-
   await page.waitForSelector('.more');
   await page.click('.more');
 
   await sleep(3000);
-
+  console.log("开始爬取电影基本信息中......");
   const movieInfo = await page.evaluate(()=>{
     
     /* var movies = document.querySelectorAll('.item'); */
