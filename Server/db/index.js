@@ -15,12 +15,29 @@ const sequelize = new Sequelize('movie_list', 'root', '123456', {
   },
 });
 
+let result = async ()=>{
+  let msg = await sequelize.import('../schema/movielist').findAll({
+    attributes: ['id', 'name', 'img_src', 'trailer_img', 'video', 'video_url']
+  });
+
+  return msg;
+}
+
 (async ()=>{
-  movieList = await movie();
-  for(let i = 0; i < movieList.length; i++){
-    movieList[i]['createdAt'] = new Date();
-    movieList[i]['updatedAt'] = new Date();
-    await sequelize.import('../schema/movielist').create(movieList[i]);
+  var res = await result();
+  if(res.length > 0){
+    console.log("数据库已有数据，请启动后端服务！")
+  }else{
+    (async ()=>{
+      movieList = await movie();
+      for(let i = 0; i < movieList.length; i++){
+        movieList[i]['createdAt'] = new Date();
+        movieList[i]['updatedAt'] = new Date();
+        await sequelize.import('../schema/movielist').create(movieList[i]);
+      }
+      console.log("数据库存储数据完毕！");
+    })();
   }
-})();
+})()
+
 
