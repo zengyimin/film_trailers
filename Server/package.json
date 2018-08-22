@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "putDatabase" : "node db/index.js"
+    "putDatabase": "node db/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsonwebtoken": "^8.3.0",
     "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-jwt": "^3.3.2",
     "koa-router": "^7.4.0",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
