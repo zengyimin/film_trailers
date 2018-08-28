@@ -1,21 +1,35 @@
 <template>
   <div class="home-page">
-    <div class="home-title">
-      <img class="home-logo" src="../../assets/img/logos.png" alt="movie">
-      <p>LOVE-MOVIE</p>
+    <div class="home-header">
+      <div class="home-decoration">
+        <div class="movie-icon-film"></div>
+      </div>
     </div>
-    <login></login>
+    <div class="home-title">MOVIEO</div>
+    <login :isLogin='true' @toRegistry="toRegistry"></login>
+    <transition name="registry">
+      <registry v-if="show_registry"></registry>
+    </transition>
   </div>  
 </template>
 <script>
 import login from './login.vue'
+import registry from './registry.vue'
 export default {
   data(){
-    return {}
+    return {
+      show_registry:false,
+    }
   },
   components:{
     login,
-  }
+    registry,
+  },
+  methods:{
+    toRegistry(){
+      this.show_registry = true;
+    },
+  },
 }
 </script>
 <style>
@@ -24,21 +38,35 @@ export default {
   width: 100vw;
   height:100vh;
   font-size: 14px;
-  background-color: #f25353;
+  background-color: #fff;
+}
+
+.home-header{
+  position: relative;
+  width: 100vw;
+  height: 6rem;
+}
+.home-decoration{
+  position: absolute;
+  right: 0;
+  width: 60vw;
+  height: 5rem;
+}
+.movie-icon-film{
+  width: 4.5rem;
+  height: 5rem;
+  background: url(../../assets/img/home-decoration.png) -0px -0px no-repeat;
+  background-size: 5rem 5rem;
 }
 .home-title{
-  position: absolute;
-  top: 3rem;
-  width: 100vw;
-  height:2rem;
+  font-size: 22px;
 }
-.home-logo{
-  width: 1rem;
-  height: 1rem;
+
+.registry-enter-active, .registry-leave-active {
+  transition: left 2s;
 }
-.home-title p{
-  color: #fff;
-  font-size: 16px;
+.registry-enter, .registry-leave-to  {
+  left: 0;
 }
 </style>
 
