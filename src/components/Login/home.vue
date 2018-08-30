@@ -8,7 +8,7 @@
     <div class="home-title">MOVIEO</div>
     <login :isLogin='true' @toRegistry="toRegistry"></login>
     <transition name="registry">
-      <registry v-if="show_registry"></registry>
+      <registry v-if="show_registry" @closeReg="closeReg"></registry>
     </transition>
   </div>  
 </template>
@@ -28,6 +28,9 @@ export default {
   methods:{
     toRegistry(){
       this.show_registry = true;
+    },
+    closeReg(){
+      this.show_registry = false;
     },
   },
 }
@@ -63,10 +66,10 @@ export default {
 }
 
 .registry-enter-active, .registry-leave-active {
-  transition: left 2s;
+  transition: left 1s;
 }
 .registry-enter, .registry-leave-to  {
-  left: 0;
+  left: 100vw !important;
 }
 </style>
 

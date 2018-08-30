@@ -1,7 +1,7 @@
 <template>
   <div class="registry-wrap">
     <div class="registry-header">
-      <div class="registry-close close"></div>
+      <div class="registry-close close" @click="close_registry"></div>
       <div class="registry-mask"></div>
     </div>
     <div class="registry-content">
@@ -16,6 +16,11 @@ import login from './login.vue'
 export default {
   components:{
     login,
+  },
+  methods:{
+    close_registry(){
+      this.$emit('closeReg');
+    },
   },
 }
 </script>
