@@ -66,7 +66,7 @@ export default {
 }
 
 .registry-enter-active, .registry-leave-active {
-  transition: left 1s;
+  transition: left .5s;
 }
 .registry-enter, .registry-leave-to  {
   left: 100vw !important;

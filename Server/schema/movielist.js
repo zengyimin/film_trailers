@@ -30,14 +30,6 @@ module.exports = function(sequelize, DataTypes) {
     video_url: {
       type: DataTypes.STRING(256),
       allowNull: true
-    },
-    createdAt: {
-      type: DataTypes.STRING(64),
-      allowNull: false
-    },
-    updatedAt: {
-      type: DataTypes.STRING(64),
-      allowNull: false
     }
   }, {
     tableName: 'movielist'

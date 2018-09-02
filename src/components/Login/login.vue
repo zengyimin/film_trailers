@@ -16,14 +16,15 @@
         <el-input v-else v-model="reg_password" class="password-input" placeholder="请输入注册密码"></el-input>
       </div>
       <div class="input-button">
-        <el-button v-if="isLogin" type="primary" class="login-btn" round>登录</el-button>
-        <el-button v-else type="primary" class="login-btn" round>注册</el-button>
+        <el-button v-if="isLogin" type="primary" class="login-btn" @click="login" round>登录</el-button>
+        <el-button v-else type="primary" class="login-btn" @click="registry" round>注册</el-button>
         <p v-if="isLogin">没有账号？请<span class="btn-registry" @click="toRegistry">注册</span></p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {toTime} from '../../assets/js/utils'
 export default {
   data(){
     return {
@@ -38,6 +39,25 @@ export default {
     toRegistry(){
       this.$emit("toRegistry");
     },
+    login(){
+      this.$http.post('/api/user/login',{
+        username: this.username,
+        password: this.password,
+      }).then((res) => {
+        console.log(res);
+      })
+    },
+    registry(){
+      this.$http.post('/api/user/registry',{
+        username: this.reg_username,
+        password: this.reg_password,
+        createdAt: toTime(new Date()),
+        updatedAt: toTime(new Date()),
+      })
+      .then((res) => {
+        console.log(res);
+      })
+    }
   },
 }
 </script>

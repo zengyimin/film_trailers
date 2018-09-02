@@ -1,11 +1,4 @@
-//sleep code
-function sleep(time){
-  return new Promise(resolve => {
-    setTimeout(resolve,time);
-  })
-}
-
-function toTime(date){
+export function toTime(date){
   var yy = date.getFullYear();      //年
   var mm = date.getMonth() + 1;     //月
   var dd = date.getDate();          //日
@@ -19,14 +12,9 @@ function toTime(date){
   clock += dd + " ";
   if(hh < 10) clock += "0";
   clock += hh + ":";
-  if (ii < 10) clock += '0'; 
+  if (ii < 10) clock += '0'; s
   clock += ii + ":";
   if (ss < 10) clock += '0'; 
   clock += ss;
   return clock;
-}
-
-module.exports = {
-  sleep,
-  toTime,
 }

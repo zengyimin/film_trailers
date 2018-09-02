@@ -13,6 +13,9 @@ const sequelize = new Sequelize('movie_list', 'root', '123456', {
     acquire: 30000,
     idle: 10000
   },
+  define: {
+    timestamps : false
+  }
 });
 
 let result = async ()=>{
@@ -38,6 +41,9 @@ let result = async ()=>{
       console.log("数据库存储数据完毕！");
     })();
   }
-})()
+})
 
+module.exports = {
+  sequelize,
+}
 

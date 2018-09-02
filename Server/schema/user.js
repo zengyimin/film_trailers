@@ -15,14 +15,6 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING(128),
       allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.STRING(128),
-      allowNull: false
-    },
-    updatedAt: {
-      type: DataTypes.STRING(128),
-      allowNull: false
     }
   }, {
     tableName: 'user'
