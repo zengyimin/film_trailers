@@ -24,7 +24,6 @@
   </div>
 </template>
 <script>
-import {toTime} from '../../assets/js/utils'
 export default {
   data(){
     return {
@@ -51,8 +50,6 @@ export default {
       this.$http.post('/api/user/registry',{
         username: this.reg_username,
         password: this.reg_password,
-        createdAt: toTime(new Date()),
-        updatedAt: toTime(new Date()),
       })
       .then((res) => {
         console.log(res);

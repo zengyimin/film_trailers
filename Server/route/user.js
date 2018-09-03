@@ -2,10 +2,17 @@ const Router = require('koa-router');
 const {sequelize} = require('../db/index');
 const {toTime} = require('../utils/index')
 const router = new Router();
+const secret = 'jew-test';
+const jwt = require('jsonwebtoken');
+
+let userToken;
+let token;
 
 router.post('/api/user/login', async(ctx)=>{
   let username = ctx.request.body.username;
   let password  = ctx.request.body.password;
+  userToken = ctx.request.body.username;
+  token = jwt.sign(userToken, secret)
   let result = await sequelize.import('../schema/user').findOne({
     where : {
       name : username,
@@ -16,6 +23,7 @@ router.post('/api/user/login', async(ctx)=>{
     ctx.body = {
       success:true,
       msg:"登录成功",
+      token:token,
     }
   }else{
     ctx.body = {
@@ -34,11 +42,18 @@ router.post('/api/user/registry', async(ctx) => {
   let result = await sequelize.import('../schema/user').create({
     name : username,
     password : password,
-    createdAt: "Thu Aug 23 2018 00:14:19 GMT+0800 ",
-    updatedAt: "Thu Aug 23 2018 00:14:19 GMT+0800 ",
   })
-  console.log(result);
-  ctx.body = "aa";
+  if(result !== null){
+    ctx.body = {
+      success:true,
+      msg:"注册成功",
+    }
+  }else{
+    ctx.body = {
+      success: false,
+      msg:"注册失败",
+    }
+  }
 })
 
 exports.login = router;
