@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const {sequelize} = require('../db/index');
 const {toTime} = require('../utils/index')
 const router = new Router();
-const secret = 'jew-test';
+const secret = 'jwt-test';
 const jwt = require('jsonwebtoken');
 
 let userToken;
@@ -12,7 +12,7 @@ router.post('/api/user/login', async(ctx)=>{
   let username = ctx.request.body.username;
   let password  = ctx.request.body.password;
   userToken = ctx.request.body.username;
-  token = jwt.sign(userToken, secret)
+  token = jwt.sign({data: userToken}, "jwt-test", {expiresIn: '1h'})
   let result = await sequelize.import('../schema/user').findOne({
     where : {
       name : username,

@@ -13,6 +13,10 @@ Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
+axios.interceptors.request.use((config) => {
+  config.headers.common['Authorization'] = "Bearer " + localStorage.getItem("access_token");
+  return config;
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
