@@ -20,10 +20,12 @@
         <el-button v-else type="primary" class="login-btn" @click="registry" round>注册</el-button>
         <p v-if="isLogin">没有账号？请<span class="btn-registry" @click="toRegistry">注册</span></p>
       </div>
+      <span class="danger">{{danger}}</span>
     </div>
   </div>
 </template>
 <script>
+import {Vaildation} from '../../assets/js/utils.js' 
 export default {
   data(){
     return {
@@ -31,6 +33,7 @@ export default {
       password:"",
       reg_username:"",
       reg_password:"",
+      danger:"",
     }
   },
   props:["isLogin"],
@@ -39,14 +42,57 @@ export default {
       this.$emit("toRegistry");
     },
     login(){
-      this.$http.post('/api/user/login',{
-        username: this.username,
-        password: this.password,
-      }).then((res) => {
-        console.log(res);
-        localStorage.setItem('access_token',res.data.token);
-        this.$router.push('/home');
+      let vaild = [
+        {
+          value:this.username,
+          type: "用户名",
+          rules:[
+            "isDefine", 
+            {
+              name:"limit",
+              check: true,
+              min:5,
+              max:12
+            }
+          ]
+        },
+        {
+          value:this.password,
+          type: "密码",
+          rules:[
+            "isDefine", 
+            {
+              name:"mix",
+              check:true,
+            },
+            {
+              name:"limit",
+              check: true,
+              min:5,
+              max:12
+            }
+          ]
+        }
+      ];
+      let vaildation = new Vaildation();
+      vaildation.vaild_item = vaild;
+      let result = vaildation.check();
+      result.forEach((res) => {
+        if(!res.check){
+          this.danger = res.type;
+        }
       })
+
+      if(vaildation.isCheck){
+        this.$http.post('/api/user/login',{
+          username: this.username,
+          password: this.password,
+        }).then((res) => {
+          console.log(res);
+          localStorage.setItem('access_token',res.data.token);
+          this.$router.push('/home');
+        })
+      }
     },
     registry(){
       this.$http.post('/api/user/registry',{
@@ -120,8 +166,15 @@ export default {
   color: #fff;
   cursor: pointer;
 }
-.btn-registry{
+.btn-registry,.danger{
   color: #f25353;
+}
+.danger{
+  position: absolute;
+  bottom:.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4rem;
 }
 </style>
 
