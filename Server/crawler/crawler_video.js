@@ -7,7 +7,7 @@ let results = async () => {
   console.log("开始爬取电影预告片信息中......");
   let moviesInfo = await movies();
   const browser = await puppeteer.launch({
-    /* headless: false, */
+    
   });
 
   for(let i = 0; i < moviesInfo.length; i += 5){

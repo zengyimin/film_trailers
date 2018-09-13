@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const {movie} = require('../crawler/index.js');
 let movieList;
-/* const test = require('./schema/tests'); */
 
 const sequelize = new Sequelize('movie_list', 'root', '123456', {
   host: 'localhost',
@@ -20,7 +19,7 @@ const sequelize = new Sequelize('movie_list', 'root', '123456', {
 
 let result = async ()=>{
   let msg = await sequelize.import('../schema/movielist').findAll({
-    attributes: ['id', 'name', 'img_src', 'trailer_img', 'video', 'video_url']
+    attributes: ['id', 'name', 'img_src', 'trailer_img', 'rate', 'video_url']
   });
 
   return msg;
@@ -29,7 +28,7 @@ let result = async ()=>{
 (async ()=>{
   var res = await result();
   if(res.length > 0){
-    console.log("数据库已有数据，请启动后端服务！")
+    console.log("数据库已有数据！")
   }else{
     (async ()=>{
       movieList = await movie();
@@ -41,7 +40,7 @@ let result = async ()=>{
       console.log("数据库存储数据完毕！");
     })();
   }
-})
+})()
 
 module.exports = {
   sequelize,

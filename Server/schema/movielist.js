@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(256),
       allowNull: true
     },
-    video: {
+    rate: {
       type: DataTypes.STRING(256),
       allowNull: true
     },

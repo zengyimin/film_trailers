@@ -22,7 +22,7 @@ export function toTime(date){
 export class Vaildation {
   constructor(){
     this.isCheck = false;
-    this.vaild_item = [];
+    this.vaild_item;
     this.vaild = [];
   }
   rules(){
@@ -105,12 +105,12 @@ export class Vaildation {
           for(let j = 0; j < rules_arr.length; j++){
             for(let o in this.rules()){
               if(rules_arr[j]['name'] == o && !this.rules()[rules_arr[j]['name']].call(this,this.vaild_item[i])){
-                this.vaild = [this.check_result(false,this.error()[rules_arr[j]['name']].call(this,this.vaild_item[i]))];
+                this.vaild = this.check_result(false,this.error()[rules_arr[j]['name']].call(this,this.vaild_item[i]));
                 this.isCheck = false;
                 return this.vaild;
               }else{
                 this.isCheck = true;
-                this.vaild = [this.check_result(true)];
+                this.vaild = this.check_result(true);
               }
             }
           }
@@ -121,12 +121,12 @@ export class Vaildation {
           for(let j = 0; j < rules_arr.length; j++){
             for(let o in this.rules()){
               if(rules_arr[j]['name'] == o && !this.rules()[rules_arr[j]['name']].call(this,this.vaild_item[i])){
-                this.vaild = [this.check_result(false,this.error()[rules_arr[j]['name']].call(this,this.vaild_item[i]))];
+                this.vaild = this.check_result(false,this.error()[rules_arr[j]['name']].call(this,this.vaild_item[i]));
                 this.isCheck = false;
                 return this.vaild;
               }else{
                 this.isCheck = true;
-                this.vaild = [this.check_result(true)];
+                this.vaild = this.check_result(true);
               }
             }
           }

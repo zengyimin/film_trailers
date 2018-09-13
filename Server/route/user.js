@@ -12,7 +12,7 @@ router.post('/api/user/login', async(ctx)=>{
   let username = ctx.request.body.username;
   let password  = ctx.request.body.password;
   userToken = ctx.request.body.username;
-  token = jwt.sign({data: userToken}, "jwt-test", {expiresIn: '1h'})
+  token = jwt.sign({data: userToken}, "jwt-test", {expiresIn: '12h'})
   let result = await sequelize.import('../schema/user').findOne({
     where : {
       name : username,

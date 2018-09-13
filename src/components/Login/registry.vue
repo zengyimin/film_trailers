@@ -6,7 +6,7 @@
     </div>
     <div class="registry-content">
       <div>
-        <login :isLogin='false'></login>
+        <login :isLogin='false' @toHome="close_registry"></login>
       </div>
     </div>
   </div>

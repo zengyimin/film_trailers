@@ -21,8 +21,8 @@ const movies = async ()=>{
   console.log("开始爬取电影基本信息中......");
   const movieInfo = await page.evaluate(()=>{
     
-    /* var movies = document.querySelectorAll('.item'); */
-    var movies = [document.querySelector('.item')];
+    var movies = document.querySelectorAll('.item');
+    /* var movies = [document.querySelector('.item')]; */
     var movieList = [];
     var num = 0;
 
@@ -39,39 +39,20 @@ const movies = async ()=>{
         var img_src = img.getAttribute('src');
         //获取电影名称
         var name = img.getAttribute('alt');
+        var rate = movie.querySelector('strong').innerHTML;
         movieList.push({
           id,
           href,
           img_src,
           name,
           num,
+          rate,
         })
       })
     }
     return movieList;
   })
-
-  /* movieInfo.forEach((item) => {
-    (async ()=>{
-      await page.goto(item.href,{
-        waitUntil:'networkidle2',
-      });
-      const video = await page.evaluate(() => {
-        if(document.querySelector('.related-pic-video')){
-          let dom = document.querySelector('.related-pic-video');
-          let videoHref = dom.getAttribute('href');
-          return videoHref;
-        }else{
-          return false;
-        }
-      })
-      if(video){
-        console.log(video);
-      }
-    })();
-  }) */
   return movieInfo;
-  /* console.log(movieInfo); */
 };
 
 module.exports = {

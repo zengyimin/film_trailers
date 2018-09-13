@@ -12,8 +12,8 @@
         <div class="icon-wrap">
           <div class="icon-password"></div>
         </div>
-        <el-input v-if="isLogin" v-model="password" class="password-input" placeholder="请输入登录密码"></el-input>
-        <el-input v-else v-model="reg_password" class="password-input" placeholder="请输入注册密码"></el-input>
+        <el-input v-if="isLogin" v-model="password" type="password" class="password-input" placeholder="请输入登录密码"></el-input>
+        <el-input v-else v-model="reg_password" type="password" class="password-input" placeholder="请输入注册密码"></el-input>
       </div>
       <div class="input-button">
         <el-button v-if="isLogin" type="primary" class="login-btn" @click="login" round>登录</el-button>
@@ -77,31 +77,73 @@ export default {
       let vaildation = new Vaildation();
       vaildation.vaild_item = vaild;
       let result = vaildation.check();
-      result.forEach((res) => {
-        if(!res.check){
-          this.danger = res.type;
-        }
-      })
-
+      if(!result.check){
+        this.danger = result.type;
+      }
       if(vaildation.isCheck){
+        this.danger = '';
         this.$http.post('/api/user/login',{
           username: this.username,
           password: this.password,
         }).then((res) => {
-          console.log(res);
           localStorage.setItem('access_token',res.data.token);
-          this.$router.push('/home');
+          this.$router.push('/home/film');
         })
       }
     },
     registry(){
-      this.$http.post('/api/user/registry',{
-        username: this.reg_username,
-        password: this.reg_password,
-      })
-      .then((res) => {
-        console.log(res);
-      })
+      let that = this;
+      let vaild = [
+        {
+          value:this.reg_username,
+          type: "用户名",
+          rules:[
+            "isDefine", 
+            {
+              name:"limit",
+              check: true,
+              min:5,
+              max:12
+            }
+          ]
+        },
+        {
+          value:this.reg_password,
+          type: "密码",
+          rules:[
+            "isDefine", 
+            {
+              name:"mix",
+              check:true,
+            },
+            {
+              name:"limit",
+              check: true,
+              min:5,
+              max:12
+            }
+          ]
+        }
+      ];
+      let vaildation = new Vaildation();
+      vaildation.vaild_item = vaild;
+      let result = vaildation.check();
+      if(!result.check){
+        this.danger = result.type;
+      }
+      if(vaildation.isCheck){
+        this.danger = "";
+        this.$http.post('/api/user/registry',{
+          username: this.reg_username,
+          password: this.reg_password,
+        })
+        .then((res) => {
+          this.danger = res.data.msg;
+          let t = setTimeout(() => {
+            this.$emit('toHome');
+          },1000)
+        })
+      }
     }
   },
 }

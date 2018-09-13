@@ -6,6 +6,7 @@ const router = new Router();
 const {useRouter} = require('./utils/router.js');
 const user = require('./route/user.js');
 const test = require('./route/test.js')
+const movie = require('./route/movie.js')
 const koaJwt = require('koa-jwt');
 
 app.use(bodyParser());
@@ -14,6 +15,7 @@ app.use(koaJwt({secret:"jwt-test"}).unless({
 }))
 useRouter(app,user.login);
 useRouter(app,test.tests);
+useRouter(app,movie.movieList);
 
 app
   .listen(9090);
