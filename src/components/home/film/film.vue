@@ -1,31 +1,48 @@
 <template>
   <div class="movies-wrap">
     <div class="movies-list">
-      <div  v-for="(item,index) in moviesList" :key="index" class="movies">
-        <div class="movies-pic">
-          <img :src="item.trailer_img" alt="avator">
-        </div>
-        <div class="movies-title">
-          <div class="movies-title-decor"></div>
-          <p>{{item.name}}</p>
-        </div>
-        <div class="movie-rate">豆瓣评分:{{item.rate}}分</div>
+      <div v-for="(item,index) in movieList" :key="index">
+        <movie :offset="item.offset" @getList="getList"></movie>
       </div>
     </div>
   </div>
 </template>
 <script>
+import movie from './movie_item.vue'
+import {throttle} from '../../../assets/js/utils.js' 
 export default {
   data(){
     return {
-      moviesList:"",
+      movieList:[], //控制展示多个组件的数组
+      offset:0,
+      pre_height:"",
+      height:"",
     }
   },
+  components:{
+    movie,
+  },
   mounted(){
-    this.$http.get('/api/movie/getList?offset=1').then((res) => {
-      this.moviesList = res.data.data;
+    this.movieList.push({offset:this.offset});
+    let getMovies = throttle(this.getNewList, 1000)
+    window.addEventListener('touchmove', () => {
+      getMovies();
     })
   },
+  methods:{
+    getList(height){
+      this.pre_height = height;
+      this.height = document.querySelector('.movies-list').offsetHeight;
+    },
+    getNewList(){
+      if(this.height - document.documentElement.scrollTop - document.body.offsetHeight < this.pre_height/3){
+        this.offset ++;
+        if(this.offset < 9){
+          this.movieList.push({offset:this.offset*5});
+        }
+      }
+    },
+  }
 }
 </script>
 <style>
@@ -40,36 +57,6 @@ export default {
   text-align: left;
   padding-left: .4rem;
 }
-.movies{
-  width: 100vw;
-  height: 5.4rem;
-  margin-top: .2rem;
-}
-.movies-pic, .movies-pic img{
-  width: 100vw;
-  height: 4rem;
-}
-.movies-title{
-  position: relative;
-}
-.movies-title,.movie-rate{
-  width: 100vw;
-  height: .7rem;
-  line-height: .7rem;
-  text-align: left;
-  padding-left: .4rem;
-}
-.movies-title-decor{
-  position: absolute;
-  left: .4rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: .1rem;
-  height: .4rem;
-  background-color: #886cff;
-}
-.movies-title p{
-  margin-left: .2rem;
-}
+
 </style>
 

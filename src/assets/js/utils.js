@@ -136,3 +136,24 @@ export class Vaildation {
     return this.vaild;
   }
 }
+
+export function throttle(fun,delay){
+  let last,timer;
+  return function (){
+    let that = this;
+    let arg = arguments;
+    let now = +new Date();
+    console.log(now);
+    console.log(last);
+    if(last && now < last + delay){
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        last = now;
+        fun.apply(that, arg);
+      },delay);
+    }else{
+      last = now;
+      fun.apply(that,arg);
+    }
+  }
+}
