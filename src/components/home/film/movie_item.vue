@@ -1,8 +1,9 @@
 <template>
   <div>
     <div  v-for="(item,index) in moviesList" :key="index" class="movies">
-      <div class="movies-pic">
+      <div class="movies-pic" @click="open_video(item)">
         <img :src="item.trailer_img" alt="avator">
+        <span class="play-icon"></span>
       </div>
       <div class="movies-title">
         <div class="movies-title-decor"></div>
@@ -18,6 +19,7 @@ export default {
     return {
       moviesList:[],
       pre_height: '',
+      dialogVisible:false,
     }
   },
   props:['offset'],
@@ -35,6 +37,9 @@ export default {
         })
       });
     },
+    open_video(item){
+      window.open(item.href);
+    },
   },
 }
 </script>
@@ -48,8 +53,22 @@ export default {
   width: 100vw;
   height: 4rem;
 }
+.movies-pic{
+  position: relative;
+  cursor: pointer;
+}
 .movies-title{
   position: relative;
+}
+.play-icon{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 1rem;
+  height: 1rem;
+  background-image: url(../../../assets/img/play.png);
+  background-size: 1rem 1rem;
 }
 .movies-title,.movie-rate{
   width: 100vw;

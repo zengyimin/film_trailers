@@ -42,6 +42,7 @@ export default {
   height: 2.8rem;
   background-color: #f25353;
   padding-top: 1.8rem;
+  z-index: 2;
 }
 .index-menu{
   display: flex;
@@ -77,7 +78,7 @@ export default {
   top: 2.6rem;
   width: 100vw;
   min-height:6rem; 
-  z-index: -1;
+  z-index: 1;
 }
 </style>
 
