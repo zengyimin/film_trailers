@@ -10,7 +10,7 @@ Flim_Trailers 电影预告网站
 此外，还有一些小的知识点会在项目中体现
 
 ### 目录
-项目结构和起步<br>
+[项目结构和起步](https://github.com/saitoChen/film_trailers/blob/master/book/1.md)<br>
 puppeteer爬取内容<br>
 常用的MySQL语句<br>
 将爬取内容存入数据库<br>
