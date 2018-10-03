@@ -12,7 +12,7 @@ const movies = async ()=>{
     waitUntil:'networkidle2',
   });
 
-  //等待30s
+  //等待3s
   await sleep(3000);
   await page.waitForSelector('.more');
   await page.click('.more');

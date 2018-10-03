@@ -12,7 +12,7 @@ Flim_Trailers 电影预告网站
 ### 目录
 [项目结构和起步](https://github.com/saitoChen/film_trailers/blob/master/book/1.md)<br>
 [puppeteer爬取内容](https://github.com/saitoChen/film_trailers/blob/master/book/2.md)<br>
-常用的MySQL语句<br>
+[简单理解MySQL](https://github.com/saitoChen/film_trailers/blob/master/book/3.md)<br>
 将爬取内容存入数据库<br>
 JWT和后端接口设计<br>
 前端页面<br>
