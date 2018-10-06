@@ -14,7 +14,8 @@ Flim_Trailers 电影预告网站
 [puppeteer爬取内容](https://github.com/saitoChen/film_trailers/blob/master/book/2.md)<br>
 [简单理解MySQL](https://github.com/saitoChen/film_trailers/blob/master/book/3.md)<br>
 [使用sequelize将爬取内容存入数据库](https://github.com/saitoChen/film_trailers/blob/master/book/4.md)<br>
-[JWT和后端接口设计](https://github.com/saitoChen/film_trailers/blob/master/book/5.md)<br>
+[后端接口设计](https://github.com/saitoChen/film_trailers/blob/master/book/5.md)<br>
+[JWT](https://github.com/saitoChen/film_trailers/blob/master/book/6.md)<br>
 前端页面<br>
 前后端联调<br>
 
