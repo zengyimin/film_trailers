@@ -17,5 +17,3 @@ Flim_Trailers 电影预告网站
 [后端接口设计](https://github.com/saitoChen/film_trailers/blob/master/book/5.md)<br>
 [JWT](https://github.com/saitoChen/film_trailers/blob/master/book/6.md)<br>
 [前端页面](https://github.com/saitoChen/film_trailers/blob/master/book/7.md)<br>
-前后端联调<br>
-
